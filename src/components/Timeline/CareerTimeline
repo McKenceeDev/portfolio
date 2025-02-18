@@ -1,0 +1,209 @@
+import React, { useState } from 'react';
+import { 
+  Briefcase, 
+  GraduationCap, 
+  Code,
+  Rocket,
+  Building2,
+  ChevronDown,
+  ExternalLink
+} from 'lucide-react';
+
+const TimelineEvent = ({ year, title, description, details, skills, icon: Icon, isLeft, achievements }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <div className={`flex ${isLeft ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-4 group`}>
+      <div className={`flex-1 ${isLeft ? 'md:text-right' : ''}`}>
+        <div 
+          className={`bg-white p-6 rounded-lg shadow-md transition-all duration-300 cursor-pointer
+            ${isExpanded ? 'scale-105 ring-2 ring-blue-500' : 'hover:-translate-y-1'}`}
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-blue-600 font-semibold">{year}</span>
+            <ChevronDown 
+              className={`h-5 w-5 transition-transform duration-300 
+                ${isExpanded ? 'rotate-180' : ''}`}
+            />
+          </div>
+          
+          <h3 className="text-lg font-semibold mt-2">{title}</h3>
+          <p className="text-gray-600 mt-2">{description}</p>
+
+          {/* Contenido expandible */}
+          <div className={`overflow-hidden transition-all duration-300 
+            ${isExpanded ? 'max-h-96 mt-4' : 'max-h-0'}`}>
+            
+            {details && (
+              <div className="mb-4 p-4 bg-gray-50 rounded-lg">
+                <h4 className="font-medium mb-2">Key Responsibilities:</h4>
+                <ul className={`space-y-2 text-gray-600 ${isLeft ? 'text-right' : 'text-left'}`}>
+                  {details.map((detail, idx) => (
+                    <li key={idx} className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {skills && (
+              <div className="mb-4">
+                <h4 className="font-medium mb-2">Skills & Tools:</h4>
+                <div className="flex flex-wrap gap-2">
+                  {skills.map((skill, idx) => (
+                    <span key={idx} 
+                      className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {achievements && (
+              <div className="mb-4">
+                <h4 className="font-medium mb-2">Key Achievements:</h4>
+                <ul className="space-y-2 text-gray-600">
+                  {achievements.map((achievement, idx) => (
+                    <li key={idx} className="flex items-center gap-2">
+                      <Rocket className="h-4 w-4 text-blue-500" />
+                      {achievement}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="hidden md:flex items-center justify-center w-16">
+        <div className={`w-1 h-24 transition-all duration-300
+          ${isExpanded ? 'bg-blue-500' : 'bg-blue-200 group-hover:bg-blue-400'}`}>
+        </div>
+        <div className={`absolute p-3 rounded-full text-white transition-all duration-300
+          ${isExpanded ? 'bg-blue-600 scale-110' : 'bg-blue-500'}`}>
+          <Icon className="h-6 w-6" />
+        </div>
+      </div>
+      
+      <div className="flex-1"></div>
+    </div>
+  );
+};
+
+const CareerTimeline = () => {
+  const timelineEvents = [
+    {
+      year: '2012-2022',
+      title: 'Business Leadership',
+      description: 'Successfully managed and grew a clothing retail business.',
+      details: [
+        'Managed daily operations and team leadership',
+        'Developed business strategies and growth plans',
+        'Handled customer relations and supplier management'
+      ],
+      skills: ['Business Management', 'Leadership', 'Strategic Planning', 'Customer Relations'],
+      achievements: [
+        'Grew business revenue by managing retail operations',
+        'Built and maintained strong supplier relationships',
+        'Developed efficient inventory management system'
+      ],
+      icon: Building2,
+      isLeft: false
+    },
+    {
+      year: '2022',
+      title: 'Systems Engineering',
+      description: 'Graduated as Systems Engineer with focus on software development.',
+      details: [
+        'Core computer science fundamentals',
+        'Software development principles',
+        'Database management systems'
+      ],
+      skills: ['Java', 'Python', 'SQL', 'Data Structures', 'Algorithms'],
+      achievements: [
+        'Completed major projects in software development',
+        'Participated in coding competitions',
+        'Collaborated on team engineering projects'
+      ],
+      icon: GraduationCap,
+      isLeft: true
+    },
+    {
+      year: '2023',
+      title: 'Tech Transition',
+      description: 'Started the journey into modern web development.',
+      details: [
+        'Learned modern JavaScript frameworks',
+        'Built full-stack applications',
+        'Focused on industry best practices'
+      ],
+      skills: ['JavaScript', 'React', 'Node.js', 'MongoDB', 'Git'],
+      achievements: [
+        'Developed multiple web applications',
+        'Contributed to open source projects',
+        'Implemented CI/CD pipelines'
+      ],
+      icon: Code,
+      isLeft: false
+    },
+    {
+      year: '2024',
+      title: "Master's in Digital Transformation",
+      description: 'Pursuing advanced studies while developing AI-integrated applications.',
+      details: [
+        'Digital transformation strategies',
+        'AI and ML integration',
+        'Modern architecture patterns'
+      ],
+      skills: ['AI Integration', 'Cloud Computing', 'System Architecture', 'Digital Strategy'],
+      achievements: [
+        'Developing AI-powered applications',
+        'Research in digital transformation',
+        'Leading innovative projects'
+      ],
+      icon: Rocket,
+      isLeft: true
+    },
+    {
+      year: 'Present',
+      title: 'Full Stack Development',
+      description: 'Building innovative solutions with modern technologies.',
+      details: [
+        'Developing full-stack applications',
+        'Implementing AI features',
+        'Creating responsive web interfaces'
+      ],
+      skills: ['React', 'Node.js', 'MongoDB', 'AWS', 'OpenAI', 'TailwindCSS'],
+      achievements: [
+        'Developed Multara - Transit Management System',
+        'Created Phantom 6 - Referral System',
+        'Implemented various AI integrations'
+      ],
+      icon: Briefcase,
+      isLeft: false
+    }
+  ];
+
+  return (
+    <section className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4">
+        <h2 className="text-3xl font-bold mb-4 text-center">Professional Journey</h2>
+        <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+          Click on each milestone to explore more details about my professional journey
+        </p>
+        <div className="space-y-12">
+          {timelineEvents.map((event, index) => (
+            <TimelineEvent key={index} {...event} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default CareerTimeline;
